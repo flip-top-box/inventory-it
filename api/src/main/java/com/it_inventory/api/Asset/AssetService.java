@@ -1,31 +1,41 @@
 package com.it_inventory.api.Asset;
-import java.time.LocalDateTime;
+
 import java.util.List;
+import java.util.Optional;
+import java.util.Map;
 
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+public interface AssetService {
+    List<Asset> getAssets();
+    Optional<Asset> getAssetById(Integer id);
 
+    Asset addAsset(Asset asset);
 
-@Service
-public class AssetService {
+    boolean deleteAssetById(Integer id);
+    List<Asset> findAssetsByDescription(String description);
 
-    private final AssetRepository assetRepository;
+    List<Asset> findAssetsByAssignedTo(String assigned_to);
 
-    
-    public AssetService(AssetRepository assetRepository) {
-        this.assetRepository = assetRepository;
-    }
+    List<Asset> findAssetsCreatedBy(String created_by);
 
-    public Asset addAsset(@RequestBody Asset asset) {
-        asset.setDateOfCheckout(LocalDateTime.now());
-        return assetRepository.save(asset);
-    }
-    
-    public List<Asset> getAsset() {
-        List<Asset> assets = assetRepository.findAll();
-        System.out.println("Number of assets: " + assets.size());
-        return assets;
-    }
+    List<Asset> getAssetBySerial(String serial);
+
+    List<Asset> getAssetsByStatus(String status);
+
+    List<Asset> findAssetsByLocation(String location);
+
+    Map<String, Object> getAssetData(Integer id);
+
+    void updateAssetDescription(Integer id, String new_description);
+
+    void updateAssetSerial(Integer id, String new_serial);
+
+    void updateAssetLocation(Integer id, String new_location);
+
+    void updateAssetAssignedTo(Integer id, String new_location);
+
+    void updateAssetStatus(Integer id, String new_location);
 }
+
+
 

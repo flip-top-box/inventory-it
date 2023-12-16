@@ -5,118 +5,109 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+//import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name="asset")
 public class Asset {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Asset Tag ID")
-    private Integer assetID;
+    @GeneratedValue(strategy = IDENTITY)
 
-    @Column(name = "Description")
-    private String asset;
-
-    @Column(name = "Serial No")
-    private String assetSerial;
-
-    @Column(name = "Location")
-    private String assetLocation;
-
-    @Column(name = "Assigned to")
-    private String assetEmpName;
-
-    @Column(name = "Status")
-    private String assetStatus;
-
-    @Column(name = "Date Created")
-    private LocalDateTime dateOfCheckout;
-    
-    @Column(name = "Created by")
-    private String assetCreator;
+    private Integer id;
+    //@Column(name = "description")
+    private String description;
+    //@Column(name = "serial")
+    private String serial;
+    //@Column(name = "location")
+    private String location;
+    //@Column(name = "assigned_to")
+    private String assigned_to;
+    //@Column(name = "status")
+    private String status;
+    //@Column(name = "created_by")
+    private String created_by;
+    //@Column(name = "date_created")
+    private LocalDateTime date_created;
     
     //getters and setters galore
-    public Integer getAssetID() {
-        return assetID;
+    public Integer getID() {
+        return id;
     }
 
-    public void setAssetID(Integer assetID) {
-        this.assetID = assetID;
+    public void setID(Integer id) {
+        this.id = id;}
+
+    public String getDescription() {
+        return description;
     }
 
-    public String getAsset() {
-        return asset;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setAsset(String asset) {
-        this.asset = asset;
+    public String getSerial() {
+        return serial;
     }
 
-    public String getAssetSerial() {
-        return assetSerial;
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
 
-    public void setAssetSerial(String assetSerial) {
-        this.assetSerial = assetSerial;
+    public String getLocation() {
+        return location;
     }
 
-    public String getAssetLocation() {
-        return assetLocation;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public void setAssetLocation(String assetLocation) {
-        this.assetLocation = assetLocation;
+    public String getAssignedTo() {
+        return assigned_to;
     }
 
-    public String getAssetEmpName() {
-        return assetEmpName;
+    public void setAssignedTo(String assigned_to) {
+        this.assigned_to = assigned_to;
     }
 
-    public void setAssetEmpName(String assetEmpName) {
-        this.assetEmpName = assetEmpName;
+    public String getStatus() {
+        return status;
     }
 
-    public String getAssetStatus() {
-        return assetStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setAssetStatus(String assetStatus) {
-        this.assetStatus = assetStatus;
+    public LocalDateTime getDateCreated() {
+        return date_created;
     }
 
-    public LocalDateTime getDateOfCheckout() {
-        return dateOfCheckout;
+    public void setDateCreated(LocalDateTime date_created) {
+        this.date_created = date_created;
     }
 
-    public void setDateOfCheckout(LocalDateTime dateOfCheckout) {
-        this.dateOfCheckout = dateOfCheckout;
+    public String getCreatedBy() {
+        return created_by;
     }
 
-    public String getAssetCreator() {
-        return assetCreator;
-    }
-
-    public void setAssetCreator(String assetCreator) {
-        this.assetCreator = assetCreator;
+    public void setCreatedBy(String created_by) {
+        this.created_by = created_by;
     }
 
     @Override
     public String toString() {
-        return "Asset [assetID=" + assetID + ", ...]" + 
-        ", asset=" + asset + 
-        ", assetSerial=" + assetSerial +
-        ", assetLocation=" + assetLocation + 
-        ", assetEmpName=" + assetEmpName + 
-        ", assetStatus=" + assetStatus +
-        ", assetCreator=" + assetCreator +
-        ", dateOfCheckout=" + dateOfCheckout + "]";
+        return "Asset [id=" + id + ", ...]" +
+        ", description=" + description +
+        ", serial=" + serial +
+        ", location=" + location +
+        ", assigned_to=" + assigned_to +
+        ", status=" + status +
+        ", created_by=" + created_by +
+        ", date_created=" + date_created + "]";
     }
-
-    
-
 
 }
