@@ -17,21 +17,13 @@ public class Asset {
     
     @Id
     @GeneratedValue(strategy = IDENTITY)
-
     private Integer id;
-    //@Column(name = "description")
     private String description;
-    //@Column(name = "serial")
     private String serial;
-    //@Column(name = "location")
     private String location;
-    //@Column(name = "assigned_to")
     private String assigned_to;
-    //@Column(name = "status")
     private String status;
-    //@Column(name = "created_by")
     private String created_by;
-    //@Column(name = "date_created")
     private LocalDateTime date_created;
     
     //getters and setters galore
