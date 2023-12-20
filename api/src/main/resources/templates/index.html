@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Asset Management</title>
+    <!-- Include HTMX from CDN -->
+    <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.js"></script>
+    <link href="./styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+<main>
+<div class="flex-container my-5 mx-5">
+<h1>Asset List</h1>
+    <table class="table"
+           id="assets-results"
+           hx-get="/api/v1/static/assets"
+           hx-trigger="load"
+           hx-target="#assets-results">
+        <!-- Server returns HTMX fragments from /templates/assets_fragments.html -->
+    </table>
+</div>
+</main>
+</body>
+</html>

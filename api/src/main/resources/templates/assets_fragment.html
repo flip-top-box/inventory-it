@@ -1,0 +1,39 @@
+<!--
+./assets_fragment.html
+
+This file uses HTMX to return the data from
+the DB and map it to the td elements this
+controller is in:
+/com/Static/StaticAssetController
+-->
+<thead>
+<tr>
+    <th scope="col">ID</th>
+    <th scope="col">Description</th>
+    <th scope="col">Serial</th>
+    <th scope="col">Location</th>
+    <th scope="col">Status</th>
+    <th scope="col">Assigned To</th>
+    <th scope="col">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="asset : ${assets}">
+    <td th:text="${asset.id}"></td>
+    <td th:text="${asset.description}"></td>
+    <td th:text="${asset.serial}"></td>
+    <td th:text="${asset.location}"></td>
+    <td th:text="${asset.status}"></td>
+    <td th:text="${asset.assignedTo}"></td>
+    <td>
+        <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                th:attr="data-target='#editAssetModal',data-id=${asset.id}"
+        >
+            Edit Asset
+        </button>
+    </td>
+</tr>
+</tbody>
