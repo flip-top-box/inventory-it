@@ -24,7 +24,7 @@ public class StaticAssetController {
         try {
             List<Asset> assets = assetService.getAssets();
             model.addAttribute("assets", assets);
-            return "assets_fragment"; // refers to 'assets_fragment.html'
+            return "fragments/assets_fragment"; // refers to 'assets_fragment.html'
         } catch (Exception e) {
             // logger.error("Error fetching assets", e);
             return "error_fragment"; // an error fragment view

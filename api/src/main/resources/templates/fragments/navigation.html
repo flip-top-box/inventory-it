@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- Title Area -->
+        <a class="navbar-brand" href="/">3z Brands IT Inventory</a>
+
+        <!-- Hamburger Menu Toggle Button for Smaller Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu options aligned to the right -->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto"> <!-- ms-auto class aligns the menu to the right -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/asset-list">Assets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inventory-list">Inventory</a>
+                </li>
+                <!-- More navigation links -->
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
