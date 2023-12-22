@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List; // Added import for List
 
 @Controller
@@ -30,6 +32,5 @@ public class StaticAssetController {
             return "error_fragment"; // an error fragment view
         }
     }
-
 
 }

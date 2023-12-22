@@ -5,6 +5,8 @@ This file uses HTMX to return the data from
 the DB and map it to the td elements this
 controller is in:
 /com/Static/StaticAssetController
+
+TODO: Add action functionality
 -->
 <thead>
 <tr>
@@ -12,7 +14,15 @@ controller is in:
     <th scope="col">Description</th>
     <th scope="col">Serial</th>
     <th scope="col">Location</th>
-    <th scope="col">Status</th>
+    <th scope="col">
+        <!-- TODO add sorted get route -->
+        Status
+        <a href="#"
+           hx-get="/api/assets/sorted?sort=status"
+           hx-trigger="click"
+           hx-target="#assets-table"
+           hx-swap="outerHTML">↓</a>
+    </th>
     <th scope="col">Assigned To</th>
     <th scope="col">Actions</th>
 </tr>
@@ -32,7 +42,13 @@ controller is in:
                 data-toggle="modal"
                 th:attr="data-target='#editAssetModal',data-id=${asset.id}"
         >
-            Edit Asset
+            Edit
+        </button>
+        <button
+            type="button"
+            class="btn btn-danger"
+        >
+                Delete
         </button>
     </td>
 </tr>

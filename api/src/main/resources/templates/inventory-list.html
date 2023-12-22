@@ -4,6 +4,16 @@
 <body>
 <header th:replace="fragments/navigation :: navbar"></header>
 <main>
-    <h1>Inventory List</h1>
+    <div class="flex-container my-5 mx-5">
+        <h1>Inventory List</h1>
+        <table class="table"
+               id="inventory-results"
+               hx-get="/api/v1/static/item"
+               hx-trigger="load"
+               hx-target="#inventory-results"
+        >
+            <!-- Server returns HTMX fragments from /templates/assets_fragments.html -->
+        </table>
+    </div>
 </main>
 </body>
