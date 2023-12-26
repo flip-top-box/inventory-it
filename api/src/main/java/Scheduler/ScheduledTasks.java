@@ -14,13 +14,13 @@ public class ScheduledTasks {
         this.itemController = itemController;
     }
 
-    // Schedule the execution of getItemsToOrder every week on Sunday at 2:00 AM
+    // Schedule the execution of getItemsToOrder every week on Monday at 6:00 AM
     @Scheduled(cron = "0 0 6 * * MON")
     public void scheduleGetItemsToOrder() {
         itemController.getItemsToOrder();
     }
 
-    // Schedule the execution of getItemsToOrderAsset every week on Sunday at 3:00 AM
+    // Schedule the execution of getItemsToOrderAsset every week on Monday at 6:00 AM
     @Scheduled(cron = "0 0 6 * * MON")
     public void scheduleGetItemsToOrderAsset() {
         itemController.getItemsToOrderAsset();
