@@ -1,12 +1,13 @@
 package com.it_inventory.api.Item;
 
-import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
-import java.util.Map;
-import java.util.HashMap;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @Service
@@ -14,6 +15,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
 
+    @Autowired
     public ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
@@ -21,6 +23,16 @@ public class ItemServiceImpl implements ItemService {
     ////////////////////////////////////////////////////////
     //           !!! GET METHODS !!!                     //
     ///////////////////////////////////////////////////////
+
+    @Override
+    public List<Item> getItemsToOrderAsset() {
+        return itemRepository.findItemsToOrderAsset();
+    }
+
+    @Override
+    public List<Item> getItemsToOrder() {
+        return itemRepository.findItemsToOrder();
+    }
     @Override
     public List<Item> getItems() {
         return itemRepository.findAll();
@@ -29,6 +41,7 @@ public class ItemServiceImpl implements ItemService {
     public Optional<Item> getItemById(Long id) {
         return itemRepository.findById(id);
     }
+
 
     @Override
     public List<Item> findItemByDescription(String description) {
@@ -173,6 +186,19 @@ public class ItemServiceImpl implements ItemService {
             itemRepository.save(item);
         } else {
             throw new EntityNotFoundException("Item not found with id: " + id);
+        }
+    }
+
+    @Override
+    public void updateIsAsset(Long id, Boolean is_asset) {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            item.setIs_asset(is_asset);
+            itemRepository.save(item);
+        } else {
+            throw new EntityNotFoundException("Asset not found with id: " + id);
         }
     }
     @Override

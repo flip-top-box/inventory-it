@@ -10,6 +10,10 @@ public interface ItemService {
 
     Optional<Item> getItemById(Long id);
 
+    List<Item> getItemsToOrderAsset();
+
+    List<Item> getItemsToOrder();
+
     List<Item> findItemByDescription(String description);
 
     List<Item> findItemByBrand(String brand);
@@ -31,6 +35,8 @@ public interface ItemService {
     void updateItemLocation(Long id, String location);
 
     void updateSendEmail(Long id, Boolean send_email);
+
+    void updateIsAsset(Long id, Boolean send_email);
 
     void updateMinVal(Long id, Integer min_val);
 
