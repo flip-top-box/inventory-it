@@ -104,7 +104,7 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItemsToOrderAsset() {
         try {
             List<Item> itemsToOrder = itemService.getItemsToOrderAsset();
-            slackService.sendMessage(itemsToOrder, "asset-inventory");
+            slackService.sendSlackMessage(itemsToOrder, "asset");
             return ResponseEntity.ok(itemsToOrder);
         } catch (Exception e) {
             logger.error("Error fetching items to order", e);
@@ -116,7 +116,7 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItemsToOrder() {
         try {
             List<Item> itemsToOrder = itemService.getItemsToOrder();
-            slackService.sendMessage(itemsToOrder, "item-inventory");
+            slackService.sendSlackMessage(itemsToOrder, "item");
             return ResponseEntity.ok(itemsToOrder);
         } catch (Exception e) {
             logger.error("Error fetching items to order", e);
