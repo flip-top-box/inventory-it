@@ -33,11 +33,8 @@ public class SlackService {
         try {
             ChatPostMessageResponse response = Slack.getInstance().methods(slackConfig.getBotToken())
                     .chatPostMessage(req -> req.channel(slackConfig.getChannel()).text(message));
-
-            // Log the response from Slack if needed
             logger.info("Slack message sent. Response: {}", response);
         } catch (IOException | SlackApiException e) {
-            // Log the exception instead of printing the stack trace
             logger.error("Error sending Slack message", e);
         }
     }
@@ -59,7 +56,6 @@ public class SlackService {
             // Send the message once with all mentions
             this.sendMessage(message);
         } catch (Exception e) {
-            // Log the exception instead of printing the stack trace
             logger.error("Error sending Slack message", e);
         }
     }
