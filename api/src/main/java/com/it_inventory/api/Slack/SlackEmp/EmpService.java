@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface EmpService {
     List<Emp> getEmpByNotifications(String notifications);
+
+    Emp addEmp(Emp emp);
+
+    List<Emp> getEmployees();
+
+    boolean deleteEmp(Integer id);
 }
