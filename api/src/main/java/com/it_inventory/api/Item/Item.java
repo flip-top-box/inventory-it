@@ -21,6 +21,8 @@ public class Item {
     private Integer min_val;
     private Integer count;
 
+    private Boolean is_asset;
+
     public String getDescription() {
         return description;
     }
@@ -85,17 +87,11 @@ public class Item {
         this.min_val = min_val;
     }
 
-    public Integer decrementCount(Integer decNum) {
-        Integer current = getCount();
-        decNum = current - decNum;
-
-        return decNum;
+    public Boolean getIs_asset() {
+        return is_asset;
     }
 
-    public Integer incrementCount(Integer incNum) {
-        Integer current = getCount();
-        incNum += current;
-
-        return incNum;
+    public void setIs_asset(Boolean is_asset) {
+        this.is_asset = is_asset;
     }
 }
