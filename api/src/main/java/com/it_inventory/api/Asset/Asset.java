@@ -27,12 +27,13 @@ public class Asset {
     private LocalDateTime date_created;
     
     //getters and setters galore
-    public Integer getID() {
+    public Integer getId() {
         return id;
     }
 
-    public void setID(Integer id) {
-        this.id = id;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
