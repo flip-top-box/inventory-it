@@ -1,19 +1,20 @@
 package com.it_inventory.api.Item;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PutMapping;
-import jakarta.persistence.EntityNotFoundException;
-import java.util.Map;
+import com.it_inventory.api.Slack.SlackService;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.time.LocalDateTime;
+
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 
 
 @RestController
@@ -21,10 +22,12 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class ItemController {
 
     private final ItemService itemService;
+    private final SlackService slackService;
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, SlackService slackService) {
         this.itemService = itemService;
+        this.slackService = slackService;
     }
 
     /////////////////////////////////////////////////////
@@ -96,6 +99,32 @@ public class ItemController {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/items_to_order_asset")
+    public ResponseEntity<List<Item>> getItemsToOrderAsset() {
+        try {
+            List<Item> itemsToOrder = itemService.getItemsToOrderAsset();
+            slackService.sendSlackMessage(itemsToOrder, "asset");
+            return ResponseEntity.ok(itemsToOrder);
+        } catch (Exception e) {
+            logger.error("Error fetching items to order", e);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/items_to_order")
+    public ResponseEntity<List<Item>> getItemsToOrder() {
+        try {
+            List<Item> itemsToOrder = itemService.getItemsToOrder();
+            slackService.sendSlackMessage(itemsToOrder, "item");
+            return ResponseEntity.ok(itemsToOrder);
+        } catch (Exception e) {
+            logger.error("Error fetching items to order", e);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 
     /////////////////////////////////////////////////////
     //          !!! ADD ROUTES !!!                     //
@@ -235,6 +264,23 @@ public class ItemController {
         } catch (Exception e) {
             logger.error("Error updating item count", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(Map.of("error", "Internal server error"));
+        }
+    }
+
+    @PutMapping("/{id}/update_is_asset")
+    public ResponseEntity<Map<String, Object>> updateIsAsset(
+            @PathVariable Long id,
+            @RequestBody Map<String, Boolean> requestBody) {
+        try {
+            Boolean newIsAsset = requestBody.get("new_is_asset");
+            itemService.updateIsAsset(id, newIsAsset);
+            Map<String, Object> itemData = itemService.getItemData(id);
+            return ResponseEntity.ok(itemData);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(NOT_FOUND).body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Error updating is_asset", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

@@ -106,7 +106,7 @@ public class AssetServiceImpl implements AssetService {
             Asset asset = optionalAsset.get();
 
             Map<String, Object> assetData = new HashMap<>();
-            assetData.put("id", asset.getID());
+            assetData.put("id", asset.getId());
             assetData.put("description", asset.getDescription());
             assetData.put("serial", asset.getSerial());
             assetData.put("location", asset.getLocation());
