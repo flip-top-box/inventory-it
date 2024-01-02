@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 
+@CrossOrigin(origins = "http://localhost:3000/assets")
 @RestController
 @RequestMapping(path = "api/v1/assets")
 public class AssetController {
@@ -45,7 +46,6 @@ public class AssetController {
         }
     }
 
-    //Route to GET asset by ID
     @GetMapping("get_by_id/{id}")
     public ResponseEntity<Asset> getAssetById(@PathVariable Integer id) {
         try {
@@ -57,7 +57,6 @@ public class AssetController {
         }
     }
 
-    //Get routes by a keyword in the description
     @GetMapping("/get_by_description/{description}")
     public ResponseEntity<List<Asset>> getAssetsByDescription(@PathVariable String description) {
         try {
