@@ -1,4 +1,4 @@
-package com.it_inventory.api;
+package com.it_inventory.api.Cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

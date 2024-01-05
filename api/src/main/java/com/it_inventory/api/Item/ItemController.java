@@ -16,7 +16,6 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path = "api/v1/items")
 public class ItemController {

@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 
-@CrossOrigin(origins = "http://localhost:3000/assets")
 @RestController
 @RequestMapping(path = "api/v1/assets")
 public class AssetController {
