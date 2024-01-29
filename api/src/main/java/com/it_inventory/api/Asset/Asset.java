@@ -1,22 +1,16 @@
 package com.it_inventory.api.Asset;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="asset")
 public class Asset {
     
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     private Integer id;
     private String description;
     private String serial;
