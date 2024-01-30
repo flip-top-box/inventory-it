@@ -8,6 +8,8 @@ public interface ItemService {
 
     List<Item> getItems();
 
+    void updateItem(Long id, Map<String, Object> updates);
+
     Optional<Item> getItemById(Long id);
 
     List<Item> getItemsToOrderAsset();

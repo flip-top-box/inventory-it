@@ -159,6 +159,23 @@ public class AssetController {
     /* !!! PUT ROUTES !!! */                            //
 //////////////////////////////////////////////////////////
 
+    //all in one to get it done
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateAsset(
+            @PathVariable Integer id,
+            @RequestBody Map<String, Object> updates) {
+        try {
+            assetService.updateAsset(id, updates);
+            return ResponseEntity.ok("Asset updated successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error updating asset", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
     @PutMapping("/{id}/update_description")
     public ResponseEntity<Map<String, Object>> updateAssetDescription(
             @PathVariable Integer id,

@@ -89,6 +89,46 @@ public class ItemServiceImpl implements ItemService {
     //           !!! PUT METHODS !!!                     //
     ///////////////////////////////////////////////////////
 
+    //all in one get it done
+    @Override
+    public void updateItem(Long id, Map<String, Object> updates) {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+
+            // Update only the fields present in the JSON request
+            if (updates.containsKey("description")) {
+                item.setDescription((String) updates.get("description"));
+            }
+            if (updates.containsKey("brand")) {
+                item.setBrand((String) updates.get("brand"));
+            }
+            if (updates.containsKey("location")) {
+                item.setLocation((String) updates.get("location"));
+            }
+            if (updates.containsKey("model")) {
+                item.setModel((String) updates.get("model"));
+            }
+            if (updates.containsKey("send_email")) {
+                item.setSend_email((Boolean) updates.get("send_email"));
+            }
+            if (updates.containsKey("min_val")) {
+                item.setMin_val((Integer) updates.get("min_val"));
+            }
+            if (updates.containsKey("count")) {
+                item.setCount((Integer) updates.get("count"));
+            }
+            if (updates.containsKey("is_asset")) {
+                item.setIs_asset((Boolean) updates.get("is_asset"));
+            }
+
+            itemRepository.save(item);
+        } else {
+            throw new EntityNotFoundException("Item not found with ID: " + id);
+        }
+    }
+
     //GET DATA FOR PUT METHODS
     @Override
     public Map<String, Object> getItemData(Long id) {

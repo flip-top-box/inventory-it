@@ -9,6 +9,8 @@ public interface AssetService {
     List<Asset> getAssets();
     Optional<Asset> getAssetById(Integer id);
 
+    void updateAsset(Integer id, Map<String, Object> updates);
+
     Asset addAsset(Asset asset);
 
     boolean deleteAssetById(Integer id);

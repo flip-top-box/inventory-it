@@ -97,6 +97,37 @@ public class AssetServiceImpl implements AssetService {
     /* !!! PUT METHODS !!! */
     /////////////////////////////////////////////////////////////////////
 
+    // all in one to get it done
+    @Override
+    public void updateAsset(Integer id, Map<String, Object> updates) {
+        Optional<Asset> optionalAsset = assetRepository.findById(id);
+
+        if (optionalAsset.isPresent()) {
+            Asset asset = optionalAsset.get();
+
+            // Update only the fields present in the JSON request
+            if (updates.containsKey("description")) {
+                asset.setDescription((String) updates.get("description"));
+            }
+            if (updates.containsKey("serial")) {
+                asset.setSerial((String) updates.get("serial"));
+            }
+            if (updates.containsKey("location")) {
+                asset.setLocation((String) updates.get("location"));
+            }
+            if (updates.containsKey("assignedTo")) {
+                asset.setAssignedTo((String) updates.get("assignedTo"));
+            }
+            if (updates.containsKey("status")) {
+                asset.setStatus((String) updates.get("status"));
+            }
+
+            assetRepository.save(asset);
+        } else {
+            throw new EntityNotFoundException("Asset not found with ID: " + id);
+        }
+    }
+
     //GET DATA FOR PUT METHODS
     @Override
     public Map<String, Object> getAssetData(Integer id) {
