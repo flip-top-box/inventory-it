@@ -159,6 +159,22 @@ public class ItemController {
     //           !!! PUT METHODS !!!                     //
     ///////////////////////////////////////////////////////
 
+    //all in one get it done
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateAsset(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> updates) {
+        try {
+            itemService.updateItem(id, updates);
+            return ResponseEntity.ok("Item updated successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error updating Item: ", e);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PutMapping("/{id}/update_description")
     public ResponseEntity<Map<String, Object>> updateItemDescription(
             @PathVariable Long id,
