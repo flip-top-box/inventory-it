@@ -1,17 +1,17 @@
-# Use an official Maven image as the base image
-FROM maven:3.8.4-openjdk-11-slim AS build
-# Set the working directory in the container
+# Stage 1: Build the application using a Maven image that includes JDK 17
+FROM maven:3.8.4-openjdk-17 AS buildstage
 WORKDIR /app
-# Copy the pom.xml and the project files to the container
+
+# Copy only pom.xml initially to cache dependencies
 COPY pom.xml .
 COPY src ./src
-# Build the application using Maven
+
+# Build the application without running tests to speed up the build
 RUN mvn clean package -DskipTests
-# Use an official OpenJDK image as the base image
-FROM openjdk:11-jre-slim
-# Set the working directory in the container
+
+# Stage 2: Adjusted to use a Java 17 JRE for compatibility
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-# Copy the built JAR file from the previous stage to the container
-COPY target/api-0.0.1-SNAPSHOT.jar /app/api-0.0.1-SNAPSHOT.jar
-# Set the command to run the application
-CMD ["java", "-jar", "my-application.jar"]
+
+COPY --from=buildstage /app/target/api-0.0.1-SNAPSHOT.jar ./api-0.0.1-SNAPSHOT.jar
+CMD ["java", "-jar", "api-0.0.1-SNAPSHOT.jar"]
