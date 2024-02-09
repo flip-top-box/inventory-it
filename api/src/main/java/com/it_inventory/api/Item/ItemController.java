@@ -59,7 +59,11 @@ public class ItemController {
     public ResponseEntity<List<Item>> getItemByDescription(@PathVariable String description) {
         try {
             List<Item> items = itemService.findItemByDescription(description);
-            return ResponseEntity.ok(items);
+            if (items.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return ResponseEntity.ok(items);
+            }
         } catch (Exception e) {
             logger.error("An error occurred while fetching items by description", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
