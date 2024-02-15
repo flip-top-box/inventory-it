@@ -33,6 +33,7 @@ public class AssetController {
     /* !!!GET ROUTES!!! */                             //
 /////////////////////////////////////////////////////////
 
+
     //Route to GET ALL assets
     @GetMapping
     public ResponseEntity<List<Asset>> getAssets() {
