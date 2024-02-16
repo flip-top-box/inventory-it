@@ -12,6 +12,6 @@ RUN mvn clean package -DskipTests
 # Stage 2: Adjusted to use a Java 17 JRE for compatibility
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-
+EXPOSE 8080
 COPY --from=buildstage /app/target/api-0.0.1-SNAPSHOT.jar ./api-0.0.1-SNAPSHOT.jar
 CMD ["java", "-jar", "api-0.0.1-SNAPSHOT.jar"]
