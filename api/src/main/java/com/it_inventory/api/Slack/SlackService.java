@@ -48,7 +48,7 @@ public class SlackService {
                     .map(employee -> "<@" + employee.getSlack_id() + ">")
                     .collect(Collectors.joining(" "));
 
-            String message = mentionList + "\n\nITEMS TO ORDER(!!!TEST!!!): " + items.size() + "\n\n"
+            String message = mentionList + "\n\nITEMS TO ORDER: " + items.size() + "\n\n"
                     + items.stream()
                     .map(this::formatItem)
                     .collect(Collectors.joining("\n"));
