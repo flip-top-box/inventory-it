@@ -1,6 +1,8 @@
 package com.it_inventory.api.Item;
 
+import com.it_inventory.api.ItemTracker.ItemTrackerService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.Optional;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
+    private final ItemTrackerService itemTrackerService;
 
     @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository) {
+    public ItemServiceImpl(ItemRepository itemRepository, ItemTrackerService itemTrackerService) {
         this.itemRepository = itemRepository;
+        this.itemTrackerService = itemTrackerService;
     }
 
     ////////////////////////////////////////////////////////
@@ -91,6 +95,7 @@ public class ItemServiceImpl implements ItemService {
 
     //all in one get it done
     @Override
+    @Transactional
     public void updateItem(Long id, Map<String, Object> updates) {
         Optional<Item> optionalItem = itemRepository.findById(id);
 
@@ -117,6 +122,16 @@ public class ItemServiceImpl implements ItemService {
                 item.setMin_val((Integer) updates.get("min_val"));
             }
             if (updates.containsKey("count")) {
+                Integer currCount = item.getCount();
+                Integer newCount = (Integer) updates.get("count");
+
+                if (newCount > currCount) {
+                    Integer amountAdded = newCount - currCount;
+                    itemTrackerService.trackItemAdded(id, amountAdded);
+                } else if (newCount < currCount) {
+                    Integer amountRemoved = currCount - newCount;
+                    itemTrackerService.trackItemRemoved(id, amountRemoved);
+                }
                 item.setCount((Integer) updates.get("count"));
             }
             if (updates.containsKey("is_asset")) {
@@ -242,30 +257,34 @@ public class ItemServiceImpl implements ItemService {
         }
     }
     @Override
+    @Transactional
     public void decrementCount(Long id, Integer decNum) {
         Optional<Item> optionalItem = itemRepository.findById(id);
 
         if (optionalItem.isPresent()) {
           Item item = optionalItem.get();
           Integer current = item.getCount();
-          decNum = current - decNum;
-          item.setCount(decNum);
+          Integer newCount = current - decNum;
+          item.setCount(newCount);
           itemRepository.save(item);
+          itemTrackerService.trackItemRemoved(id, decNum);
         } else {
             throw new EntityNotFoundException("Item not found with id: " + id);
         }
     }
 
     @Override
+    @Transactional
     public void incrementCount(Long id, Integer incNum) {
         Optional<Item> optionalItem = itemRepository.findById(id);
 
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
             Integer current = item.getCount();
-            incNum += current;
-            item.setCount(incNum);
+            Integer newCount = current + incNum;
+            item.setCount(newCount);
             itemRepository.save(item);
+            itemTrackerService.trackItemAdded(id, incNum);
         } else {
             throw new EntityNotFoundException("Item not found with id: " + id);
         }
