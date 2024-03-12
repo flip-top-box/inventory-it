@@ -52,17 +52,17 @@ public class ScheduledTasks {
     }
 
     //TEST TEST TEST//
-    @Scheduled(cron = "0 28 15 * * SUN", zone = "America/Phoenix")
-    public void testGenAndSendReport() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        Date monthYear = cal.getTime();
-        String filePath = slackService.generateCSVFile(monthYear);
-        slackService.uploadFileToSlack(filePath);
-    }
+//    @Scheduled(cron = "0 28 15 * * SUN", zone = "America/Phoenix")
+//    public void testGenAndSendReport() {
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(Calendar.DAY_OF_MONTH, 1);
+//        cal.set(Calendar.HOUR_OF_DAY, 0);
+//        cal.set(Calendar.MINUTE, 0);
+//        cal.set(Calendar.SECOND, 0);
+//        cal.set(Calendar.MILLISECOND, 0);
+//        Date monthYear = cal.getTime();
+//        String filePath = slackService.generateCSVFile(monthYear);
+//        slackService.uploadFileToSlack(filePath);
+//    }
 }
 
