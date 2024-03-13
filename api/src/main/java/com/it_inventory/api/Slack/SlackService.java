@@ -94,14 +94,18 @@ public class SlackService {
         List<ItemTracker> trackers = itemTrackerService.findItemTrackersByMonthYear(monthYear);
 
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.append("Description,Item ID,Amount Ordered,Amount Used,Current Amount,Month/Year\n");
+            writer.append("Description,Item ID,Starting Amount,Amount Added,Amount Used,Current Amount,Month/Year\n");
             for (ItemTracker tracker : trackers) {
                 Optional<Item> itemOpt = itemService.getItemById(tracker.getItemId());
                 if (itemOpt.isPresent()) {
                     Item item = itemOpt.get();
-                    writer.append(String.format("%s,%d,%d,%d,%d,%s\n",
-                            item.getDescription(), item.getId(), tracker.getAmountAdded(),
-                            tracker.getAmountRemoved(), item.getCount(),
+                    writer.append(String.format("%s,%d,%d,%d,%d,%d,%s\n",
+                            item.getDescription(),
+                            item.getId(),
+                            item.getCount() - tracker.getAmountAdded() + tracker.getAmountRemoved(),
+                            tracker.getAmountAdded(),
+                            tracker.getAmountRemoved(),
+                            item.getCount(),
                             new SimpleDateFormat("MM/yyyy").format(tracker.getMonthYear())));
                 }
             }

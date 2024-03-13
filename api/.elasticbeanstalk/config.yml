@@ -2,10 +2,14 @@ branch-defaults:
   main:
     environment: inventory-it-api-prod
     group_suffix: null
+environment-defaults:
+  inventory-it-api-prod:
+    branch: null
+    repository: null
 global:
   application_name: inventory-it-api
   branch: null
-  default_ec2_keyname: inventory-it-api
+  default_ec2_keyname: it-inventory
   default_platform: Docker running on 64bit Amazon Linux 2023
   default_region: us-west-2
   include_git_submodules: true
