@@ -12,6 +12,8 @@ public interface ItemService {
 
     Optional<Item> getItemById(Long id);
 
+    List<Item> getItemsByType(String type);
+
     List<Item> getItemsToOrderAsset();
 
     List<Item> getItemsToOrder();

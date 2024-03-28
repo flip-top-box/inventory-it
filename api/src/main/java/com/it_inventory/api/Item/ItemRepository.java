@@ -21,6 +21,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT a FROM Item a WHERE LOWER(a.model) LIKE LOWER('%' || :model || '%')")
     List<Item> findItemByModel(@Param("model") String model);
 
+    @Query("SELECT a FROM Item a WHERE a.type = :type")
+    List<Item> getItemsByType(@Param("type") String type);
+
     @Query("SELECT a FROM Item a WHERE a.send_email = true AND a.count < a.min_val AND a.is_asset = true")
     List<Item> findItemsToOrderAsset();
 

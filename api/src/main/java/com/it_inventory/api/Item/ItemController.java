@@ -1,5 +1,7 @@
 package com.it_inventory.api.Item;
 
+import com.it_inventory.api.Types.Types;
+import com.it_inventory.api.Types.TypesService;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.it_inventory.api.Slack.SlackService;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -22,11 +22,13 @@ public class ItemController {
 
     private final ItemService itemService;
     private final SlackService slackService;
+    private final TypesService typesService;
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
-    public ItemController(ItemService itemService, SlackService slackService) {
+    public ItemController(ItemService itemService, SlackService slackService, TypesService typesService) {
         this.itemService = itemService;
         this.slackService = slackService;
+        this.typesService = typesService;
     }
 
     /////////////////////////////////////////////////////
@@ -39,6 +41,26 @@ public class ItemController {
             return ResponseEntity.ok(items);
         } catch (Exception e){
             logger.error("Error fetching items", e);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+      //change for 2 dimension array
+    @GetMapping("/get_by_type")
+    public ResponseEntity<Map<String, List<Item>>> getItemsByType() {
+        try {
+            List<Types> types = typesService.getTypes();
+            Map<String, List<Item>> itemsByType = new HashMap<>();
+
+            for (Types t : types) {
+                String typeName = t.getType();
+                List<Item> itemsOfType = itemService.getItemsByType(typeName);
+                itemsByType.put(typeName, itemsOfType);
+            }
+
+            return ResponseEntity.ok(itemsByType);
+        } catch(Exception e) {
+            logger.error("Error fetching items by type", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -61,6 +83,32 @@ public class ItemController {
             List<Item> items = itemService.findItemByDescription(description);
             if (items.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                return ResponseEntity.ok(items);
+            }
+        } catch (Exception e) {
+            logger.error("An error occurred while fetching items by description", e);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/keyword_search/{description}")
+    public ResponseEntity<List<Item>> getItemByKeywords(@PathVariable String description) {
+        String[] words = description.split(" ");
+        List<Item> items = new ArrayList<>();
+        Set<Long> addedIds = new HashSet<>();
+        try {
+            for (String word : words) {
+                List<Item> itemsFound = itemService.findItemByDescription(word);
+                for (Item item : itemsFound) {
+                    if (!addedIds.contains(item.getId())) {
+                        items.add(item);
+                        addedIds.add(item.getId());
+                    }
+                }
+            }
+            if (items.isEmpty()) {
+                return new ResponseEntity<>(NOT_FOUND);
             } else {
                 return ResponseEntity.ok(items);
             }
