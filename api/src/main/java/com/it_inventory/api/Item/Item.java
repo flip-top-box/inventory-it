@@ -23,6 +23,8 @@ public class Item {
 
     private Boolean is_asset;
 
+    private String type;
+
     public String getDescription() {
         return description;
     }
@@ -93,5 +95,13 @@ public class Item {
 
     public void setIs_asset(Boolean is_asset) {
         this.is_asset = is_asset;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

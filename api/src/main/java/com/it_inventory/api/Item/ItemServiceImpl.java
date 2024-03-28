@@ -29,6 +29,9 @@ public class ItemServiceImpl implements ItemService {
     ///////////////////////////////////////////////////////
 
     @Override
+    public List<Item> getItemsByType(String type) { return itemRepository.getItemsByType(type); }
+
+    @Override
     public List<Item> getItemsToOrderAsset() {
         return itemRepository.findItemsToOrderAsset();
     }
