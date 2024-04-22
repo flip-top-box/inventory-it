@@ -32,7 +32,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        String jwkSetUri = "";
+        //String jwkSetUri = "";
         return NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
     }
 
