@@ -23,5 +23,5 @@ Inefficient Resource Utilization and Reporting
 The application addresses this by generating detailed CSV reports on item usage, providing valuable data on how assets and inventory items are being consumed over time. This enables more informed decision-making and improves the efficiency of resource allocation.
 
 
-By tackling these problems, the application not only enhances operational efficiency but also provides a more robust and proactive approach to managing IT assets and general inventory.
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**By tackling these problems, the application not only enhances operational efficiency but also provides a more robust and proactive approach to managing IT assets and general inventory.**
+
