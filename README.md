@@ -10,3 +10,18 @@ The application tackles the following issues that can be faced in IT inventory:
 - Inefficient Resource Utilization and Reporting : Without comprehensive insights into asset utilization and inventory levels, the company can neither optimize its use of resources nor accurately forecast future needs.
 
 
+Adressing Fragmented Management Systems
+---------------------------------------
+The application offers a unified solution that integrates both asset and inventory management into one platform, eliminating discrepancies and simplifying the management process.
+
+Reactive Inventory Replenishment
+--------------------------------
+By implementing automated alerts for low stock levels, the application allows businesses to proactively reorder items, ensuring that essential stock is always available and reducing the risk of operational delays.
+
+Inefficient Resource Utilization and Reporting
+----------------------------------------------
+The application addresses this by generating detailed CSV reports on item usage, providing valuable data on how assets and inventory items are being consumed over time. This enables more informed decision-making and improves the efficiency of resource allocation.
+
+
+By tackling these problems, the application not only enhances operational efficiency but also provides a more robust and proactive approach to managing IT assets and general inventory.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
